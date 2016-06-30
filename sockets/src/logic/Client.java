@@ -113,7 +113,7 @@ public class Client {
 	public void writeSocket() {
 		try {
 			objectOut = new ObjectOutputStream(socket.getOutputStream());
-			while (run) {
+			//while (run) {
 					msn = new Message();
 					msn.setIp(getIP());
 					msn.setHour(generateHour());
@@ -131,10 +131,10 @@ public class Client {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-			}
+			//}
 			
-			objectOut.close();
-			socket.close();
+			//objectOut.close();
+			//socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

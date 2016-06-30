@@ -101,7 +101,7 @@ public class Server {
 	public void writeSocket() {
 		try {
 			objectOut = new ObjectOutputStream(socket.getOutputStream());
-			while (run) {
+			//while (run) {
 					msn = new Message();
 					msn.setMessage("Hola Mundo");
 					try{
@@ -117,10 +117,10 @@ public class Server {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-			}
+			//}
 			
-			objectOut.close();
-			socket.close();
+			//objectOut.close();
+			//socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
