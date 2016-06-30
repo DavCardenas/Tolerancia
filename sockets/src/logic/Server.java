@@ -77,7 +77,9 @@ public class Server {
 	
 	public void replyMessage() {
 		try {
-			//objectOut = new ObjectOutputStream(socket.getOutputStream());
+			if (objectOut != null) {
+				objectOut = new ObjectOutputStream(socket.getOutputStream());
+			}
 			System.out.println("entra a replicar");
 			if (!queues.getWareClient().isEmpty()) {	
 				msn = queues.getWareClient().getMessage();
