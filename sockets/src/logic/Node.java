@@ -22,13 +22,13 @@ public class Node {
 			
 			@Override
 			public void run() {
-				client.connection(ip, portC, wareClient , wareServer, bird);
+				client.connection(ip, portC, wareClient , wareServer, msn);
 			}
 		});
 		
 		TClient.start();
 		
-		server = new Server(portS, wareServer, wareClient, bird);
+		server = new Server(portS, wareServer, wareClient, msn);
 		
 		TServer = new Thread(new Runnable() {
 			

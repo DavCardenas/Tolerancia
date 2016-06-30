@@ -18,17 +18,17 @@ public class Server {
 	private boolean run;
 	private Warehouse ware;
 	private Warehouse wareC;
-	private boolean serverData;
+	private boolean message;
 	private Registry registry;
 
-	public Server(int port, Warehouse wareS , Warehouse wareC,boolean serverD) {
+	public Server(int port, Warehouse wareS , Warehouse wareC,boolean msn) {
 		this.port = port;
 		socket = new Socket();
 		run = true;
-		serverData = serverD;
+		message = msn;
 		this.ware = wareS;
 		this.wareC = wareC;
-		if (serverData) {
+		if (message) {
 			registry = new Registry();
 		}
 		try {
@@ -46,6 +46,18 @@ public class Server {
 				socket = serverSocket.accept();
 				System.out.println("Conexion aceptada");
 				
+				if (message) {
+					Thread hilo2 = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							writeSocket();
+						}
+					});
+
+					hilo2.start();
+				}
+				
 					Thread hilo = new Thread(new Runnable() {
 
 						@Override
@@ -56,15 +68,6 @@ public class Server {
 
 					hilo.start();
 					
-					Thread hilo2 = new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							writeSocket();
-						}
-					});
-
-					hilo2.start();
 				
 			} catch (IOException e) {
 			}
@@ -138,9 +141,6 @@ public class Server {
 						System.out.println(msn.getMessage() + " Leido desde el servidor");
 						ware.addMessage(msn);
 						replyMessage();
-						if (serverData) {
-							saveRegister(msn);
-						}
 					} else {
 						System.out.println("SALE");
 						objectInput.close();

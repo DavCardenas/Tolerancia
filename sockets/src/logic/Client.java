@@ -35,20 +35,20 @@ public class Client {
 	private int attempts = 1;
 	private Warehouse ware;
 	private Warehouse wareS;
-	private boolean serverData;
+	private boolean message;
 	
-	public void connection(String ip, int port, Warehouse wareC, Warehouse wareS, boolean serverD) {
+	public void connection(String ip, int port, Warehouse wareC, Warehouse wareS, boolean msn) {
 		dir_ip = ip;
 		this.port = port;
 		ware = wareC;
 		this.wareS = wareS;
 		run = true;
-		serverData = serverD;
+		message = msn;
 		
 		try {
 			socket = new Socket(dir_ip,this.port);
 			
-			if (!serverData) {
+			if (message) {
 				Thread hilo = new Thread(new Runnable() {
 					
 					@Override
@@ -58,6 +58,7 @@ public class Client {
 				});
 				hilo.start();
 				
+			}
 				Thread hilo2 = new Thread(new Runnable() {
 	
 					@Override
@@ -66,7 +67,6 @@ public class Client {
 					}
 				});
 				hilo2.start();
-			}
 			
 		} catch (UnknownHostException e) {
 			System.out.println(e.getMessage());
@@ -79,7 +79,7 @@ public class Client {
 			}
 			if (attempts < 5) {
 				attempts += 1;
-				connection(dir_ip , port, ware, this.wareS, serverD);
+				connection(dir_ip , port, ware, this.wareS, msn);
 			}
 		}
 	}
