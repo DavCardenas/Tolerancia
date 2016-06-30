@@ -82,8 +82,8 @@ public class Server {
 	public void replyMessage() {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
+			System.out.println("entra ");
 			if (!wareC.isEmpty()) {	
-				System.out.println("entra ");
 				msn = wareC.getMessage();
 					try{
 						objectOut.writeObject(msn);
@@ -91,7 +91,7 @@ public class Server {
 						System.out.println("No se envio");
 					}
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

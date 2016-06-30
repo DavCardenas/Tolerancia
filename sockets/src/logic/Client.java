@@ -123,7 +123,6 @@ public class Client {
 						objectOut.writeObject(msn);
 						System.out.println("Mensaje enviado");
 						replyMessage();
-						System.out.println("Mensaje replicado");
 					}catch(SocketException e) {
 						System.out.println("NOTA NO DEBERIA ACABAR");
 						run = false;
@@ -178,8 +177,8 @@ public class Client {
 	public void replyMessage() {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
+			System.out.println("entra ");
 			if (!wareS.isEmpty()) {	
-				System.out.println("entra ");
 				msn = wareS.getMessage();
 					try{
 						objectOut.writeObject(msn);
@@ -187,7 +186,7 @@ public class Client {
 						System.out.println("No se envio");
 					}
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
