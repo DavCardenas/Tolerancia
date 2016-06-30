@@ -177,7 +177,9 @@ public class Client {
 	
 	public void replyMessage() {
 		try {
-			//objectOut = new ObjectOutputStream(socket.getOutputStream());
+			if (objectOut != null) {
+				objectOut = new ObjectOutputStream(socket.getOutputStream());
+			}
 			System.out.println("entra ");
 			if (!queues.getWareServer().isEmpty()) {	
 				msn = queues.getWareServer().getMessage();
