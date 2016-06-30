@@ -48,17 +48,6 @@ public class Client {
 		try {
 			socket = new Socket(dir_ip,this.port);
 			
-			if (message) {
-				Thread hilo = new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						writeSocket();					
-					}
-				});
-				hilo.start();
-				
-			}
 				Thread hilo2 = new Thread(new Runnable() {
 	
 					@Override
@@ -67,6 +56,18 @@ public class Client {
 					}
 				});
 				hilo2.start();
+				
+				if (message) {
+					Thread hilo = new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							writeSocket();					
+						}
+					});
+					hilo.start();
+					
+				}
 			
 		} catch (UnknownHostException e) {
 			System.out.println(e.getMessage());

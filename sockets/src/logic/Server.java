@@ -28,9 +28,6 @@ public class Server {
 		message = msn;
 		this.ware = wareS;
 		this.wareC = wareC;
-		if (message) {
-			registry = new Registry();
-		}
 		try {
 			serverSocket = new ServerSocket(this.port);
 		} catch (IOException e) {
@@ -46,6 +43,16 @@ public class Server {
 				socket = serverSocket.accept();
 				System.out.println("Conexion aceptada");
 				
+				Thread hilo = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						readSocket();
+					}
+				});
+
+				hilo.start();
+				
 				if (message) {
 					Thread hilo2 = new Thread(new Runnable() {
 
@@ -57,17 +64,6 @@ public class Server {
 
 					hilo2.start();
 				}
-				
-					Thread hilo = new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							readSocket();
-						}
-					});
-
-					hilo.start();
-					
 				
 			} catch (IOException e) {
 			}
@@ -135,7 +131,6 @@ public class Server {
 	public void readSocket() {
 		try {
 			objectInput = new ObjectInputStream(socket.getInputStream());
-			System.out.println("asd");
 			while (run) {
 				try {
 					msn = (Message) objectInput.readObject();
