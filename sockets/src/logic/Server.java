@@ -19,15 +19,15 @@ public class Server {
 	private Warehouse ware;
 	private Warehouse wareC;
 	private boolean message;
+	private Queues queues;
 	private Registry registry;
 
-	public Server(int port, Warehouse wareS , Warehouse wareC,boolean msn) {
+	public Server(int port, Queues queues ,boolean msn) {
 		this.port = port;
 		socket = new Socket();
 		run = true;
 		message = msn;
-		this.ware = wareS;
-		this.wareC = wareC;
+		this.queues = queues;
 		try {
 			serverSocket = new ServerSocket(this.port);
 		} catch (IOException e) {
@@ -79,8 +79,8 @@ public class Server {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
 			System.out.println("entra a replicar");
-			if (!wareC.isEmpty()) {	
-				msn = wareC.getMessage();
+			if (!queues.getWareClient().isEmpty()) {	
+				msn = queues.getWareClient().getMessage();
 					try{
 						objectOut.writeObject(msn);
 					}catch(SocketException e) {
@@ -136,7 +136,7 @@ public class Server {
 					msn = (Message) objectInput.readObject();
 					if (msn != null) {
 						System.out.println(msn.getMessage() + " Leido desde el servidor");
-						ware.addMessage(msn);
+						queues.getWareServer().addMessage(msn);
 						replyMessage();
 					} else {
 						System.out.println("SALE");

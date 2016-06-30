@@ -17,18 +17,20 @@ public class Node {
 		wareClient = new Warehouse();
 		wareServer = new Warehouse();
 		
+		Queues queues = Queues.getQueues(wareClient, wareServer);
+		
 		client = new Client();
 		TClient = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-				client.connection(ip, portC, wareClient , wareServer, msn);
+				client.connection(ip, portC, queues, msn);
 			}
 		});
 		
 		TClient.start();
 		
-		server = new Server(portS, wareServer, wareClient, msn);
+		server = new Server(portS, queues , msn);
 		
 		TServer = new Thread(new Runnable() {
 			

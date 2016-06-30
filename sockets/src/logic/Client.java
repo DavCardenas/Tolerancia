@@ -35,13 +35,13 @@ public class Client {
 	private int attempts = 1;
 	private Warehouse ware;
 	private Warehouse wareS;
+	private Queues queues;
 	private boolean message;
 	
-	public void connection(String ip, int port, Warehouse wareC, Warehouse wareS, boolean msn) {
+	public void connection(String ip, int port, Queues queues, boolean msn) {
 		dir_ip = ip;
 		this.port = port;
-		ware = wareC;
-		this.wareS = wareS;
+		this.queues = queues;
 		run = true;
 		message = msn;
 		
@@ -80,7 +80,7 @@ public class Client {
 			}
 			if (attempts < 5) {
 				attempts += 1;
-				connection(dir_ip , port, ware, this.wareS, msn);
+				connection(dir_ip , port, this.queues, msn);
 			}
 		}
 	}
@@ -93,7 +93,7 @@ public class Client {
 					msn = (Message) objectInput.readObject();
 					if (msn != null) {
 						System.out.println(msn.getMessage() + " Leido desde el cliente");
-						ware.addMessage(msn);
+						queues.getWareClient().addMessage(msn);
 						replyMessage();
 					} else {
 						System.out.println("SALE");
@@ -179,8 +179,8 @@ public class Client {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
 			System.out.println("entra ");
-			if (!wareS.isEmpty()) {	
-				msn = wareS.getMessage();
+			if (!queues.getWareServer().isEmpty()) {	
+				msn = queues.getWareServer().getMessage();
 					try{
 						objectOut.writeObject(msn);
 					}catch(SocketException e) {
