@@ -92,8 +92,9 @@ public class Client {
 				try {
 					msn = (Message) objectInput.readObject();
 					if (msn != null) {
-						System.out.println(msn.getMessage());
+						System.out.println(msn.getMessage() + " Leido desde el cliente");
 						ware.addMessage(msn);
+						replyMessage();
 					} else {
 						System.out.println("SALE");
 						objectInput.close();

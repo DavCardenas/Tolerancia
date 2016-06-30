@@ -135,10 +135,9 @@ public class Server {
 				try {
 					msn = (Message) objectInput.readObject();
 					if (msn != null) {
-						System.out.println(msn.getIp());
-						System.out.println(msn.getHour());
-						System.out.println(msn.getMessage());
+						System.out.println(msn.getMessage() + " Leido desde el servidor");
 						ware.addMessage(msn);
+						replyMessage();
 						if (serverData) {
 							saveRegister(msn);
 						}
