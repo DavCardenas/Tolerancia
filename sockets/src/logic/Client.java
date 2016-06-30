@@ -122,7 +122,7 @@ public class Client {
 						
 						objectOut.writeObject(msn);
 						System.out.println("Mensaje enviado");
-						replyMessage();
+						//replyMessage();
 					}catch(SocketException e) {
 						System.out.println("NOTA NO DEBERIA ACABAR");
 						run = false;

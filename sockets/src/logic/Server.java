@@ -82,7 +82,7 @@ public class Server {
 	public void replyMessage() {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
-			System.out.println("entra ");
+			System.out.println("entra a replicar");
 			if (!wareC.isEmpty()) {	
 				msn = wareC.getMessage();
 					try{
@@ -95,6 +95,8 @@ public class Server {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+			}else {
+				System.out.println("No replico");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -110,7 +112,7 @@ public class Server {
 					try{
 						
 						objectOut.writeObject(msn);
-						replyMessage();
+						//replyMessage();
 					}catch(SocketException e) {
 						System.out.println("NOTA NO DEBERIA ACABAR");
 						run = false;
