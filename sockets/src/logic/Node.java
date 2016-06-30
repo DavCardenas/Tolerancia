@@ -8,22 +8,27 @@ public class Node {
 	private Server server;
 	private Thread TClient;
 	private Thread TServer;
+	private Warehouse wareClient;
+	private Warehouse wareServer;
 	
 	public Node(int portS, String ip, int portC, boolean bird, boolean msn) {
 		
+		
+		wareClient = new Warehouse();
+		wareServer = new Warehouse();
 		
 		client = new Client();
 		TClient = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-				client.connection(ip, portC, bird);
+				client.connection(ip, portC, wareClient , wareServer, bird);
 			}
 		});
 		
 		TClient.start();
 		
-		server = new Server(portS, bird);
+		server = new Server(portS, wareServer, wareClient, bird);
 		
 		TServer = new Thread(new Runnable() {
 			

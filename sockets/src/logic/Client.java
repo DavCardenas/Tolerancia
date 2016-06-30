@@ -34,12 +34,14 @@ public class Client {
 	private int port;
 	private int attempts = 1;
 	private Warehouse ware;
+	private Warehouse wareS;
 	private boolean serverData;
 	
-	public void connection(String ip, int port, boolean serverD) {
+	public void connection(String ip, int port, Warehouse wareC, Warehouse wareS, boolean serverD) {
 		dir_ip = ip;
 		this.port = port;
-		ware = new Warehouse();
+		ware = wareC;
+		this.wareS = wareS;
 		run = true;
 		serverData = serverD;
 		
@@ -77,7 +79,7 @@ public class Client {
 			}
 			if (attempts < 5) {
 				attempts += 1;
-				connection(dir_ip , port, serverD);
+				connection(dir_ip , port, ware, this.wareS, serverD);
 			}
 		}
 	}
@@ -90,8 +92,6 @@ public class Client {
 				try {
 					msn = (Message) objectInput.readObject();
 					if (msn != null) {
-						System.out.println(msn.getIp());
-						System.out.println(msn.getHour());
 						System.out.println(msn.getMessage());
 						ware.addMessage(msn);
 					} else {
@@ -176,13 +176,11 @@ public class Client {
 	public void replyMessage() {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
-			if (!ware.isEmpty()) {	
+			if (!wareS.isEmpty()) {	
 				System.out.println("entra ");
-				msn = ware.getMessage();
+				msn = wareS.getMessage();
 					try{
-						System.out.println(ware.size());
 						objectOut.writeObject(msn);
-						System.out.println(ware.size());
 					}catch(SocketException e) {
 						System.out.println("No se envio");
 					}

@@ -17,15 +17,17 @@ public class Server {
 	private int port;
 	private boolean run;
 	private Warehouse ware;
+	private Warehouse wareC;
 	private boolean serverData;
 	private Registry registry;
 
-	public Server(int port, boolean serverD) {
+	public Server(int port, Warehouse wareS , Warehouse wareC,boolean serverD) {
 		this.port = port;
 		socket = new Socket();
 		run = true;
 		serverData = serverD;
-		ware = new Warehouse();
+		this.ware = wareS;
+		this.wareC = wareC;
 		if (serverData) {
 			registry = new Registry();
 		}
@@ -77,13 +79,11 @@ public class Server {
 	public void replyMessage() {
 		try {
 			//objectOut = new ObjectOutputStream(socket.getOutputStream());
-			if (!ware.isEmpty()) {	
+			if (!wareC.isEmpty()) {	
 				System.out.println("entra ");
-				msn = ware.getMessage();
+				msn = wareC.getMessage();
 					try{
-						System.out.println(ware.size());
 						objectOut.writeObject(msn);
-						System.out.println(ware.size());
 					}catch(SocketException e) {
 						System.out.println("No se envio");
 					}
