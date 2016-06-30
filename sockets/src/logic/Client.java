@@ -87,7 +87,6 @@ public class Client {
 	public void readSocket() {
 		try {
 			objectInput = new ObjectInputStream(socket.getInputStream());
-			System.out.println("asd");
 			while (run) {
 				try {
 					msn = (Message) objectInput.readObject();
@@ -122,7 +121,9 @@ public class Client {
 					try{
 						
 						objectOut.writeObject(msn);
+						System.out.println("Mensaje enviado");
 						replyMessage();
+						System.out.println("Mensaje replicado");
 					}catch(SocketException e) {
 						System.out.println("NOTA NO DEBERIA ACABAR");
 						run = false;
