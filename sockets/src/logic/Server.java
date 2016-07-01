@@ -94,7 +94,7 @@ public class Server {
 						e.printStackTrace();
 					}
 			}else {
-				replyMessage();
+				System.out.println("Nada que replicar");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
