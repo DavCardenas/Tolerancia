@@ -81,8 +81,8 @@ public class Server {
 				objectOut = new ObjectOutputStream(socket.getOutputStream());
 			}
 			System.out.println("entra a replicar");
-			if (!queues.getWareClient().isEmpty()) {	
 				msn = queues.getWareClient().getMessage();
+				if (msn != null) {	
 					try{
 						objectOut.writeObject(msn);
 					}catch(SocketException e) {
