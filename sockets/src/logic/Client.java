@@ -181,8 +181,8 @@ public class Client {
 				objectOut = new ObjectOutputStream(socket.getOutputStream());
 			}
 			System.out.println("entra ");
+			if (!queues.getWareServer().isEmpty()) {	
 				msn = queues.getWareServer().getMessage();
-				if (msn != null) {	
 					try{
 						objectOut.writeObject(msn);
 					}catch(SocketException e) {
