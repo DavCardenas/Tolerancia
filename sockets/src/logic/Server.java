@@ -80,9 +80,9 @@ public class Server {
 			if (objectOut != null) {
 				objectOut = new ObjectOutputStream(socket.getOutputStream());
 			}
-			System.out.println("entra a replicar");
+			System.out.println("entra ");
+			if (!queues.getWareServer().isEmpty()) {	
 				msn = queues.getWareClient().getMessage();
-				if (msn != null) {	
 					try{
 						objectOut.writeObject(msn);
 					}catch(SocketException e) {
@@ -94,7 +94,7 @@ public class Server {
 						e.printStackTrace();
 					}
 			}else {
-				System.out.println("No replico");
+				replyMessage();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
