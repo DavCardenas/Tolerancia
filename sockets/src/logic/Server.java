@@ -81,7 +81,7 @@ public class Server {
 				objectOut = new ObjectOutputStream(socket.getOutputStream());
 			}
 			System.out.println("entra ");
-			if (!queues.getWareServer().isEmpty()) {	
+			if (!queues.getWareClient().isEmpty()) {	
 				msn = queues.getWareClient().getMessage();
 					try{
 						objectOut.writeObject(msn);
