@@ -193,6 +193,8 @@ public class Client {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+			}else {
+				replyMessage();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
